@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>InstaBoost — Free Instagram Growth Tools</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f1a;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+    --accent: #e040fb;
+    --accent2: #7c4dff;
+    --gold: #ffd740;
+    --text: #f0f0ff;
+    --muted: #8888aa;
+    --radius: 18px;
+    --glass: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.12);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* BACKGROUND MESH */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,77,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(224,64,251,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255,215,64,0.04) 0%, transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    background: rgba(10,10,15,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--card-border);
+    transition: background 0.3s;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.25rem;
+    font-weight:800;
+    letter-spacing:-0.5px;
+    color:var(--text);
+    text-decoration:none;
+  }
+  .logo-icon{
+    width:36px;height:36px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;
+  }
+  .support-btn{
+    display:flex;align-items:center;gap:7px;
+    padding:9px 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius:50px;
+    color:var(--text);
+    font-size:0.88rem;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    transition: background 0.2s, transform 0.2s;
+    backdrop-filter:blur(10px);
+  }
+  .support-btn:hover{background:rgba(255,255,255,0.1);transform:translateY(-1px)}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    z-index:1;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 120px 20px 80px;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 16px;
+    background:rgba(224,64,251,0.1);
+    border:1px solid rgba(224,64,251,0.3);
+    border-radius:50px;
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--accent);
+    letter-spacing:0.5px;
+    margin-bottom:28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight:900;
+    line-height:1.1;
+    letter-spacing:-1.5px;
+    max-width:780px;
+    margin-bottom:22px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 span{
+    background: linear-gradient(90deg, var(--accent2), var(--accent), var(--gold));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero p{
+    font-size:1.1rem;
+    color:var(--muted);
+    max-width:520px;
+    line-height:1.7;
+    margin-bottom:40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns{
+    display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary{
+    padding:14px 32px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border:none;border-radius:50px;
+    color:#fff;font-size:0.95rem;font-weight:700;
+    cursor:pointer;
+    transition:transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(224,64,251,0.3);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 45px rgba(224,64,251,0.5)}
+  .btn-ghost{
+    padding:14px 32px;
+    background:transparent;
+    border:1px solid var(--glass-border);
+    border-radius:50px;
+    color:var(--text);font-size:0.95rem;font-weight:600;
+    cursor:pointer;
+    transition:background 0.2s,transform 0.2s;
+  }
+  .btn-ghost:hover{background:var(--glass);transform:translateY(-2px)}
+
+  /* STATS */
+  .stats{
+    display:flex;gap:0;
+    border:1px solid var(--card-border);
+    border-radius:20px;
+    background:var(--card);
+    backdrop-filter:blur(12px);
+    overflow:hidden;
+    margin-top:64px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat{
+    padding:22px 40px;
+    text-align:center;
+    border-right:1px solid var(--card-border);
+  }
+  .stat:last-child{border-right:none}
+  .stat-num{font-size:1.7rem;font-weight:800;letter-spacing:-1px}
+  .stat-label{font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+
+  /* FEATURES SECTION */
+  .section{
+    position:relative;z-index:1;
+    padding:80px 20px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .section-label{
+    text-align:center;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:16px;
+  }
+  .section-title{
+    text-align:center;
+    font-size: clamp(1.8rem,4vw,2.8rem);
+    font-weight:800;
+    letter-spacing:-1px;
+    margin-bottom:16px;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--muted);
+    max-width:500px;
+    margin:0 auto 60px;
+    line-height:1.7;
+  }
+
+  /* FEATURE CARDS GRID */
+  .cards-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+  }
+  @media(max-width:640px){.cards-grid{grid-template-columns:1fr}}
+
+  .feature-card{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:36px 32px;
+    cursor:pointer;
+    transition:transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    overflow:hidden;
+  }
+  .feature-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background: linear-gradient(135deg,transparent 60%, rgba(255,255,255,0.02));
+    pointer-events:none;
+  }
+  .feature-card:hover{
+    transform:translateY(-4px);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .card-icon{
+    width:52px;height:52px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.5rem;
+    margin-bottom:22px;
+  }
+  .card-icon.purple{background:linear-gradient(135deg,rgba(124,77,255,0.3),rgba(224,64,251,0.2));border:1px solid rgba(124,77,255,0.3)}
+  .card-icon.pink{background:linear-gradient(135deg,rgba(224,64,251,0.3),rgba(255,64,130,0.2));border:1px solid rgba(224,64,251,0.3)}
+  .card-icon.blue{background:linear-gradient(135deg,rgba(64,196,255,0.3),rgba(124,77,255,0.2));border:1px solid rgba(64,196,255,0.3)}
+  .card-icon.gold{background:linear-gradient(135deg,rgba(255,215,64,0.3),rgba(255,160,0,0.2));border:1px solid rgba(255,215,64,0.3)}
+
+  .card-arrow{
+    position:absolute;top:24px;right:24px;
+    width:32px;height:32px;
+    border:1px solid var(--card-border);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.8rem;
+    color:var(--muted);
+    transition:background 0.2s,color 0.2s;
+  }
+  .feature-card:hover .card-arrow{background:rgba(255,255,255,0.08);color:var(--text)}
+
+  .card-title{font-size:1.2rem;font-weight:700;margin-bottom:10px}
+  .card-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:20px}
+  .card-tags{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{
+    padding:4px 12px;
+    border-radius:50px;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+  }
+  .tag.free{background:rgba(100,220,100,0.12);color:#6ddc8b;border:1px solid rgba(100,220,100,0.2)}
+  .tag.premium{background:rgba(255,215,64,0.12);color:var(--gold);border:1px solid rgba(255,215,64,0.2)}
+  .tag.neutral{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid var(--card-border)}
+
+  /* TRUST BAR */
+  .trust-bar{
+    position:relative;z-index:1;
+    border-top:1px solid var(--card-border);
+    border-bottom:1px solid var(--card-border);
+    background:rgba(255,255,255,0.02);
+    padding:22px 20px;
+  }
+  .trust-inner{
+    max-width:900px;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+    gap:48px;
+    flex-wrap:wrap;
+  }
+  .trust-item{
+    display:flex;align-items:center;gap:8px;
+    font-size:0.85rem;color:var(--muted);
+  }
+  .trust-item span.icon{font-size:1rem;color:var(--accent)}
+
+  /* FOOTER */
+  footer{
+    position:relative;z-index:1;
+    margin-top:20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,8,20,0.95) 100%);
+    border-top: 1px solid transparent;
+    box-shadow: 0 -1px 0 rgba(124,77,255,0.35), 0 -6px 40px rgba(124,77,255,0.08);
+  }
+  .footer-glow-line{
+    height:1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(124,77,255,0.6) 30%, rgba(224,64,251,0.7) 50%, rgba(124,77,255,0.6) 70%, transparent 100%);
+    margin-bottom:0;
+  }
+  .footer-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:60px 40px 36px;
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .footer-brand .footer-logo{
+    display:flex;align-items:center;gap:10px;
+    font-size:1.2rem;font-weight:800;letter-spacing:-0.5px;
+    color:var(--text);text-decoration:none;margin-bottom:14px;
+  }
+  .footer-brand .footer-logo .logo-icon{
+    width:34px;height:34px;font-size:1rem;flex-shrink:0;
+  }
+  .footer-brand p{
+    font-size:0.85rem;color:var(--muted);line-height:1.65;max-width:260px;
+  }
+  .footer-col h4{
+    font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:18px;
+  }
+  .footer-col ul{list-style:none}
+  .footer-col ul li{margin-bottom:12px}
+  .footer-col ul li a{
+    font-size:0.87rem;color:var(--muted);text-decoration:none;
+    transition:color 0.2s;
+  }
+  .footer-col ul li a:hover{color:var(--text)}
+  .footer-discord-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 22px;
+    background:linear-gradient(135deg,rgba(124,77,255,0.2),rgba(224,64,251,0.15));
+    border:1px solid rgba(124,77,255,0.35);
+    border-radius:50px;
+    color:var(--text);font-size:0.87rem;font-weight:600;
+    text-decoration:none;margin-top:6px;
+    transition:background 0.2s,box-shadow 0.2s,transform 0.2s;
+    box-shadow:0 0 18px rgba(124,77,255,0.1);
+  }
+  .footer-discord-btn:hover{
+    background:linear-gradient(135deg,rgba(124,77,255,0.35),rgba(224,64,251,0.28));
+    box-shadow:0 0 30px rgba(124,77,255,0.25);
+    transform:translateY(-1px);
+  }
+  .footer-bottom{
+    border-top:1px solid var(--card-border);
+    padding:18px 40px;
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .footer-bottom p{font-size:0.78rem;color:var(--muted)}
+  .footer-bottom-dots{display:flex;gap:14px}
+  .footer-bottom-dots span{
+    width:6px;height:6px;border-radius:50%;
+    background: linear-gradient(135deg,var(--accent2),var(--accent));
+    opacity:0.5;
+  }
+  @media(max-width:768px){
+    .footer-inner{
+      grid-template-columns:1fr 1fr;
+      padding:40px 24px 28px;
+      gap:32px;
+    }
+    .footer-brand{grid-column:1/-1}
+    .footer-bottom{padding:16px 24px}
+  }
+  @media(max-width:480px){
+    .footer-inner{grid-template-columns:1fr;gap:28px}
+  }
+
+  /* LIMIT / COOLDOWN MODAL */
+  .limit-icon{
+    width:64px;height:64px;
+    background:linear-gradient(135deg,rgba(124,77,255,0.2),rgba(224,64,251,0.15));
+    border:1px solid rgba(124,77,255,0.35);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:2rem;
+    margin:0 auto 22px;
+    box-shadow:0 0 30px rgba(124,77,255,0.15);
+  }
+  .limit-modal{text-align:center}
+  .limit-modal h2{margin-bottom:10px}
+  .limit-modal p{color:var(--muted);line-height:1.7;margin-bottom:24px}
+  .limit-timer-badge{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:10px 20px;
+    background:rgba(124,77,255,0.1);
+    border:1px solid rgba(124,77,255,0.3);
+    border-radius:50px;
+    font-size:1rem;font-weight:700;color:var(--accent2);
+    margin-bottom:24px;
+    letter-spacing:0.5px;
+  }
+  .limit-modal-btns{display:flex;flex-direction:column;gap:10px}
+  .btn-purple{
+    width:100%;padding:13px;
+    background:linear-gradient(135deg,var(--accent2),var(--accent));
+    border:none;border-radius:12px;
+    color:#fff;font-size:0.95rem;font-weight:700;
+    cursor:pointer;
+    transition:opacity 0.2s,transform 0.2s;
+    box-shadow:0 0 24px rgba(124,77,255,0.25);
+  }
+  .btn-purple:hover{opacity:0.9;transform:translateY(-1px)}
+  .btn-outline-muted{
+    width:100%;padding:13px;
+    background:transparent;
+    border:1px solid var(--card-border);
+    border-radius:12px;
+    color:var(--muted);font-size:0.9rem;font-weight:600;
+    cursor:pointer;
+    transition:background 0.2s;
+  }
+  .btn-outline-muted:hover{background:var(--glass)}
+
+  /* OVERLAY */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(8px);
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .overlay.active{display:flex}
+
+  /* MODAL */
+  .modal{
+    background: linear-gradient(145deg, #13131f, #0f0f1a);
+    border:1px solid var(--card-border);
+    border-radius:24px;
+    padding:40px;
+    width:100%;
+    max-width:480px;
+    position:relative;
+    box-shadow:0 40px 100px rgba(0,0,0,0.8);
+    animation: modalIn 0.3s ease;
+    max-height:90vh;
+    overflow-y:auto;
+  }
+  @keyframes modalIn{from{transform:scale(0.93) translateY(20px);opacity:0}to{transform:none;opacity:1}}
+  .modal-close{
+    position:absolute;top:18px;right:18px;
+    width:32px;height:32px;
+    border-radius:50%;
+    border:1px solid var(--card-border);
+    background:transparent;
+    color:var(--muted);
+    font-size:1rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.2s,color 0.2s;
+  }
+  .modal-close:hover{background:rgba(255,255,255,0.08);color:var(--text)}
+  .modal h2{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+  .modal p.sub{color:var(--muted);font-size:0.88rem;margin-bottom:28px;line-height:1.6}
+
+  /* VIEWS MODAL */
+  .form-group{margin-bottom:18px}
+  .form-group label{display:block;font-size:0.82rem;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:0.3px}
+  .form-group input{
+    width:100%;
+    padding:13px 16px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--card-border);
+    border-radius:12px;
+    color:var(--text);
+    font-size:0.92rem;
+    outline:none;
+    transition:border-color 0.2s;
+  }
+  .form-group input:focus{border-color:rgba(124,77,255,0.5)}
+  .form-group input:disabled{opacity:0.5;cursor:not-allowed}
+  .btn-submit{
+    width:100%;
+    padding:14px;
+    background:linear-gradient(135deg,var(--accent2),var(--accent));
+    border:none;border-radius:12px;
+    color:#fff;font-size:1rem;font-weight:700;
+    cursor:pointer;
+    margin-top:6px;
+    transition:opacity 0.2s,transform 0.2s;
+    box-shadow:0 0 30px rgba(224,64,251,0.25);
+  }
+  .btn-submit:hover{opacity:0.9;transform:translateY(-1px)}
+  .btn-submit:disabled{opacity:0.5;cursor:not-allowed}
+
+  /* PREMIUM MODAL */
+  .premium-badge{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:8px 18px;
+    background:linear-gradient(135deg,rgba(255,215,64,0.15),rgba(255,160,0,0.1));
+    border:1px solid rgba(255,215,64,0.3);
+    border-radius:50px;
+    color:var(--gold);
+    font-size:0.82rem;font-weight:700;letter-spacing:0.5px;
+    margin-bottom:22px;
+  }
+  .perk-list{list-style:none;margin-bottom:28px}
+  .perk-list li{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    font-size:0.9rem;
+  }
+  .perk-list li:last-child{border-bottom:none}
+  .perk-icon{
+    width:28px;height:28px;flex-shrink:0;
+    background:linear-gradient(135deg,rgba(124,77,255,0.2),rgba(224,64,251,0.1));
+    border:1px solid rgba(124,77,255,0.2);
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.85rem;margin-top:1px;
+  }
+  .perk-text strong{display:block;font-weight:700;margin-bottom:2px}
+  .perk-text span{font-size:0.8rem;color:var(--muted)}
+  .btn-gold{
+    width:100%;padding:14px;
+    background:linear-gradient(135deg,#f9a800,var(--gold));
+    border:none;border-radius:12px;
+    color:#0a0a0f;font-size:1rem;font-weight:800;
+    cursor:pointer;
+    transition:transform 0.2s,box-shadow 0.2s;
+    box-shadow:0 0 30px rgba(255,215,64,0.2);
+    text-decoration:none;
+    display:block;text-align:center;
+  }
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(255,215,64,0.35)}
+
+  /* SUCCESS MODAL */
+  .success-icon{
+    width:64px;height:64px;
+    background:linear-gradient(135deg,rgba(100,220,100,0.2),rgba(64,196,255,0.1));
+    border:1px solid rgba(100,220,100,0.3);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+    margin:0 auto 22px;
+  }
+  .success-modal{text-align:center}
+  .success-modal h2{margin-bottom:10px}
+  .success-modal p{color:var(--muted);line-height:1.7;margin-bottom:28px}
+
+  /* PREMIUM LOCK MODAL */
+  .lock-icon{
+    width:64px;height:64px;
+    background:linear-gradient(135deg,rgba(255,215,64,0.15),rgba(255,160,0,0.1));
+    border:1px solid rgba(255,215,64,0.3);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:2rem;
+    margin:0 auto 22px;
+  }
+
+  /* TOAST */
+  .toast{
+    position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:rgba(20,20,35,0.95);
+    border:1px solid var(--card-border);
+    border-radius:50px;
+    padding:12px 24px;
+    font-size:0.88rem;
+    color:var(--text);
+    z-index:500;
+    opacity:0;
+    transition:all 0.3s;
+    backdrop-filter:blur(10px);
+    white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .fade-in{animation:fadeUp 0.6s ease both}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav{padding:14px 20px}
+    .stats{flex-direction:column}
+    .stat{border-right:none;border-bottom:1px solid var(--card-border);padding:18px 28px}
+    .stat:last-child{border-bottom:none}
+    .trust-inner{gap:20px}
+    .modal{padding:28px 22px}
+  }
+  @media(max-width:480px){
+    .hero-btns{flex-direction:column;align-items:stretch;width:100%;max-width:300px}
+    .feature-card{padding:26px 22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">📈</div>
+    InstaBoost
+  </a>
+  <a href="https://discord.gg/YOUR_DISCORD" target="_blank" class="support-btn">
+    <span>💬</span> Support
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✨ Free Instagram Growth Tools</div>
+  <h1>Grow Your Instagram <span>Organically & Fast</span></h1>
+  <p>Get real views, likes and followers for your Instagram. No login required. Start growing instantly — completely free.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Get Started Free</button>
+    <button class="btn-ghost" onclick="openPremiumModal()">View Premium ✦</button>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="counter-orders">48,231</div>
+      <div class="stat-label">Orders Delivered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="counter-active">2,847</div>
+      <div class="stat-label">Active Now</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98.7%</div>
+      <div class="stat-label">Success Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="icon">⚡</span> Fast Delivery</div>
+    <div class="trust-item"><span class="icon">🔒</span> Secure System</div>
+    <div class="trust-item"><span class="icon">👤</span> No Login Required</div>
+    <div class="trust-item"><span class="icon">✅</span> 98.7% Success Rate</div>
+    <div class="trust-item"><span class="icon">🌍</span> Global Reach</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-label">Choose a Tool</div>
+  <h2 class="section-title">Instagram Growth Suite</h2>
+  <p class="section-sub">Pick the tool that fits your goal. Free tools are instant. Premium unlocks more power.</p>
+  <div class="cards-grid">
+
+    <!-- Insta Views -->
+    <div class="feature-card fade-in" onclick="openViewsModal()">
+      <div class="card-arrow">↗</div>
+      <div class="card-icon purple">🎬</div>
+      <div class="card-title">Insta Views</div>
+      <div class="card-desc">Boost your Reel with 500 free genuine views. Paste your reel link and submit — delivered fast.</div>
+      <div class="card-tags">
+        <span class="tag free">Free</span>
+        <span class="tag neutral">500 Views</span>
+        <span class="tag neutral">~1 hr</span>
+      </div>
+    </div>
+
+    <!-- Insta Likes -->
+    <div class="feature-card fade-in" style="animation-delay:0.1s" onclick="openPremiumLockModal('Insta Likes')">
+      <div class="card-arrow">↗</div>
+      <div class="card-icon pink">❤️</div>
+      <div class="card-title">Insta Likes</div>
+      <div class="card-desc">Get real likes delivered to your post. Boost your engagement and reach with premium likes.</div>
+      <div class="card-tags">
+        <span class="tag premium">⭐ Premium</span>
+        <span class="tag neutral">Real Likes</span>
+      </div>
+    </div>
+
+    <!-- Insta Followers -->
+    <div class="feature-card fade-in" style="animation-delay:0.15s" onclick="openPremiumLockModal('Insta Followers')">
+      <div class="card-arrow">↗</div>
+      <div class="card-icon blue">👥</div>
+      <div class="card-title">Insta Followers</div>
+      <div class="card-desc">Grow your follower count with real accounts. Premium-grade growth for your Instagram profile.</div>
+      <div class="card-tags">
+        <span class="tag premium">⭐ Premium</span>
+        <span class="tag neutral">Real Followers</span>
+      </div>
+    </div>
+
+    <!-- Buy Premium -->
+    <div class="feature-card fade-in" style="animation-delay:0.2s" onclick="openPremiumModal()">
+      <div class="card-arrow">↗</div>
+      <div class="card-icon gold">👑</div>
+      <div class="card-title">Buy Premium</div>
+      <div class="card-desc">Unlock all tools, priority support, faster delivery and exclusive growth features.</div>
+      <div class="card-tags">
+        <span class="tag premium">✦ Upgrade</span>
+        <span class="tag neutral">All Features</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-glow-line"></div>
+  <div class="footer-inner">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">
+        <div class="logo-icon">📈</div>
+        InstaBoost
+      </a>
+      <p>Free &amp; Premium Instagram Growth Tools. Boost your reels, likes and followers — fast, safe and easy.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#" onclick="openPremiumModal();return false">Premium</a></li>
+        <li><a href="https://discord.gg/YOUR_DISCORD" target="_blank">Support</a></li>
+      </ul>
+    </div>
+
+    <!-- Support -->
+    <div class="footer-col">
+      <h4>Community</h4>
+      <p style="font-size:0.84rem;color:var(--muted);line-height:1.6;margin-bottom:16px">Join our Discord for support, updates and premium access.</p>
+      <a href="https://discord.gg/YOUR_DISCORD" target="_blank" class="footer-discord-btn">
+        💬 Discord Server
+      </a>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 InstaBoost · All Rights Reserved</p>
+    <div class="footer-bottom-dots"><span></span><span></span><span></span></div>
+  </div>
+</footer>
+
+<!-- === VIEWS MODAL === -->
+<div class="overlay" id="viewsOverlay" onclick="closeIfOverlay(event,'viewsOverlay')">
+  <div class="modal" id="viewsModal">
+    <button class="modal-close" onclick="closeModal('viewsOverlay')">✕</button>
+    <div class="card-icon purple" style="margin-bottom:16px">🎬</div>
+    <h2>Insta Views</h2>
+    <p class="sub">Paste your Instagram Reel link below and get 500 free views delivered within 1 hour.</p>
+    <div class="form-group">
+      <label>Instagram Reel Link</label>
+      <input type="url" id="reelLink" placeholder="https://www.instagram.com/reel/..." />
+    </div>
+    <div class="form-group">
+      <label>Views Amount</label>
+      <input type="text" value="500 Views" disabled />
+    </div>
+    <button class="btn-submit" id="submitViewsBtn" onclick="submitViews()">🚀 Get Free Views</button>
+    <p id="viewsError" style="color:#ff6b6b;font-size:0.82rem;margin-top:10px;display:none"></p>
+  </div>
+</div>
+
+<!-- === PREMIUM MODAL === -->
+<div class="overlay" id="premiumOverlay" onclick="closeIfOverlay(event,'premiumOverlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('premiumOverlay')">✕</button>
+    <div class="premium-badge">👑 Premium Membership</div>
+    <h2>Upgrade to Premium</h2>
+    <p class="sub">Unlock the full power of InstaBoost with our Premium plan.</p>
+    <ul class="perk-list">
+      <li>
+        <div class="perk-icon">❤️</div>
+        <div class="perk-text"><strong>Access Insta Likes Tool</strong><span>Send real likes to any post</span></div>
+      </li>
+      <li>
+        <div class="perk-icon">👥</div>
+        <div class="perk-text"><strong>Access Insta Followers Tool</strong><span>Grow your audience organically</span></div>
+      </li>
+      <li>
+        <div class="perk-icon">⚡</div>
+        <div class="perk-text"><strong>Faster Order Processing</strong><span>Priority queue for premium members</span></div>
+      </li>
+      <li>
+        <div class="perk-icon">🎯</div>
+        <div class="perk-text"><strong>Priority Support</strong><span>Dedicated Discord support channel</span></div>
+      </li>
+    </ul>
+    <a href="https://discord.gg/YOUR_DISCORD" target="_blank" class="btn-gold">Buy Now on Discord →</a>
+  </div>
+</div>
+
+<!-- === PREMIUM LOCK MODAL === -->
+<div class="overlay" id="lockOverlay" onclick="closeIfOverlay(event,'lockOverlay')">
+  <div class="modal success-modal">
+    <button class="modal-close" onclick="closeModal('lockOverlay')">✕</button>
+    <div class="lock-icon">🔒</div>
+    <h2>Premium Feature</h2>
+    <p id="lockText">This is a Premium feature. Buy Premium to unlock <strong>Insta Likes</strong> and all other tools.</p>
+    <button class="btn-gold" onclick="closeModal('lockOverlay');openPremiumModal()">👑 Buy Premium</button>
+  </div>
+</div>
+
+<!-- === SUCCESS MODAL === -->
+<div class="overlay" id="successOverlay" onclick="closeIfOverlay(event,'successOverlay')">
+  <div class="modal success-modal">
+    <button class="modal-close" onclick="closeModal('successOverlay')">✕</button>
+    <div class="success-icon">✅</div>
+    <h2>Order Placed!</h2>
+    <p>Your order has been placed successfully.<br>Delivery usually completes within 1 hour.</p>
+    <button class="btn-primary" style="width:100%;padding:14px;border-radius:12px" onclick="closeModal('successOverlay')">Done</button>
+  </div>
+</div>
+
+<!-- === COOLDOWN MODAL === -->
+<div class="overlay" id="cooldownOverlay" onclick="closeIfOverlay(event,'cooldownOverlay')">
+  <div class="modal limit-modal">
+    <button class="modal-close" onclick="closeModal('cooldownOverlay')">✕</button>
+    <div class="limit-icon">⏳</div>
+    <h2>Cooldown Active</h2>
+    <p>You need to wait before using Insta Views again.<br>Free plan has a <strong>10 minute cooldown</strong> between uses.</p>
+    <div class="limit-timer-badge" id="cooldownTimer">⏱ -- min -- sec remaining</div>
+    <div class="limit-modal-btns">
+      <button class="btn-purple" onclick="closeModal('cooldownOverlay');openPremiumModal()">👑 Upgrade for No Limits</button>
+      <button class="btn-outline-muted" onclick="closeModal('cooldownOverlay')">Wait for Cooldown</button>
+    </div>
+  </div>
+</div>
+
+<!-- === QUOTA MODAL === -->
+<div class="overlay" id="quotaOverlay" onclick="closeIfOverlay(event,'quotaOverlay')">
+  <div class="modal limit-modal">
+    <button class="modal-close" onclick="closeModal('quotaOverlay')">✕</button>
+    <div class="limit-icon">🚫</div>
+    <h2>Daily Limit Reached</h2>
+    <p>Your free daily credits are finished.<br>Wait <strong>24 hours</strong> for reset or Buy Premium for unlimited access.</p>
+    <div class="limit-timer-badge" id="quotaTimer">🕐 Resets in -- hrs</div>
+    <div class="limit-modal-btns">
+      <button class="btn-purple" onclick="closeModal('quotaOverlay');openPremiumModal()">👑 Buy Premium — Unlimited</button>
+      <button class="btn-outline-muted" onclick="closeModal('quotaOverlay')">Wait for Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ---- CONFIG ----
+  const BACKEND_URL = ''; // Leave empty for same-origin; set to your backend URL if different
+
+  // ---- MODAL HELPERS ----
+  function openModal(id){document.getElementById(id).classList.add('active')}
+  function closeModal(id){document.getElementById(id).classList.remove('active')}
+  function closeIfOverlay(e,id){if(e.target.id===id)closeModal(id)}
+
+  function openViewsModal(){openModal('viewsOverlay')}
+  function openPremiumModal(){closeModal('lockOverlay');openModal('premiumOverlay')}
+  function openPremiumLockModal(feature){
+    document.getElementById('lockText').innerHTML = `This is a Premium feature. Buy Premium to unlock <strong>${feature}</strong> and all other tools.`;
+    openModal('lockOverlay');
+  }
+
+  // ---- TOAST ----
+  function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg;t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),3500);
+  }
+
+  // ---- VALIDATE INSTAGRAM LINK ----
+  function isValidInstagramLink(url){
+    try{
+      const u=new URL(url);
+      return (u.hostname==='www.instagram.com'||u.hostname==='instagram.com') &&
+             (u.pathname.includes('/reel/')||u.pathname.includes('/p/'));
+    }catch{return false}
+  }
+
+  // ---- SUBMIT VIEWS (with rate limit handling) ----
+  async function submitViews(){
+    const link=document.getElementById('reelLink').value.trim();
+    const errEl=document.getElementById('viewsError');
+    errEl.style.display='none';
+    if(!link){errEl.textContent='Please enter your Instagram Reel link.';errEl.style.display='block';return}
+    if(!isValidInstagramLink(link)){errEl.textContent='Please enter a valid Instagram Reel or post link.';errEl.style.display='block';return}
+    const btn=document.getElementById('submitViewsBtn');
+    btn.disabled=true;btn.textContent='Checking limit...';
+    try{
+      const res=await fetch(`${BACKEND_URL}/api/order`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({link})
+      });
+      const data=await res.json();
+      if(data.success){
+        closeModal('viewsOverlay');
+        document.getElementById('reelLink').value='';
+        openModal('successOverlay');
+      } else if(data.limitType==='cooldown'){
+        closeModal('viewsOverlay');
+        showCooldownModal(data.remainingSeconds);
+      } else if(data.limitType==='quota'){
+        closeModal('viewsOverlay');
+        showQuotaModal(data.resetSeconds);
+      } else {
+        errEl.textContent=data.error||'Something went wrong. Please try again.';
+        errEl.style.display='block';
+      }
+    }catch(e){
+      errEl.textContent='Network error. Please check your connection and try again.';
+      errEl.style.display='block';
+    }finally{
+      btn.disabled=false;btn.textContent='🚀 Get Free Views';
+    }
+  }
+
+  // ---- COOLDOWN MODAL ----
+  let _cooldownInterval=null;
+  function showCooldownModal(secs){
+    let remaining=secs;
+    const el=document.getElementById('cooldownTimer');
+    function updateTimer(){
+      const m=Math.floor(remaining/60),s=remaining%60;
+      el.textContent=`⏱ ${m} min ${String(s).padStart(2,'0')} sec remaining`;
+      if(remaining<=0){clearInterval(_cooldownInterval);el.textContent='⏱ Ready!'}
+      remaining--;
+    }
+    updateTimer();
+    clearInterval(_cooldownInterval);
+    _cooldownInterval=setInterval(updateTimer,1000);
+    openModal('cooldownOverlay');
+  }
+
+  // ---- QUOTA MODAL ----
+  let _quotaInterval=null;
+  function showQuotaModal(secs){
+    let remaining=secs;
+    const el=document.getElementById('quotaTimer');
+    function updateTimer(){
+      const h=Math.floor(remaining/3600),m=Math.floor((remaining%3600)/60);
+      el.textContent=`🕐 Resets in ${h}h ${m}m`;
+      if(remaining<=0){clearInterval(_quotaInterval);el.textContent='🕐 Ready to use!'}
+      remaining--;
+    }
+    updateTimer();
+    clearInterval(_quotaInterval);
+    _quotaInterval=setInterval(updateTimer,1000);
+    openModal('quotaOverlay');
+  }
+
+  // ---- TRACK VISITOR ----
+  async function trackVisitor(){
+    try{
+      await fetch(`${BACKEND_URL}/api/track`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          referrer:document.referrer||'Direct',
+          userAgent:navigator.userAgent,
+          language:navigator.language,
+          screen:`${screen.width}x${screen.height}`
+        })
+      });
+    }catch{}
+  }
+  window.addEventListener('load',trackVisitor);
+
+  // ---- COUNTER ANIMATION ----
+  function animateCounter(el,target,prefix='',suffix=''){
+    const start=Math.max(0,target-Math.floor(target*0.15));
+    let current=start;
+    const step=Math.ceil((target-start)/60);
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=prefix+current.toLocaleString()+suffix;
+      if(current>=target)clearInterval(timer);
+    },20);
+  }
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el=e.target;
+        if(el.id==='counter-orders')animateCounter(el,48231);
+        if(el.id==='counter-active')animateCounter(el,2847);
+        io.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('#counter-orders,#counter-active').forEach(el=>io.observe(el));
+
+  // ---- ENTER KEY ON MODAL ----
+  document.getElementById('reelLink').addEventListener('keydown',e=>{if(e.key==='Enter')submitViews()});
+</script>
+</body>
+</html>

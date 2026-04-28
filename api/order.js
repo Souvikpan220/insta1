@@ -98,13 +98,13 @@ module.exports = async (req, res) => {
     }
 
     const response = await axios.post(
-      "https://justanotherpanel.com/api/v2",
+      "https://luvsmm.com/api/v2",
       null,
       {
         params: {
           key: process.env.FALCON_API_KEY,
           action: "add",
-          service: 3030,
+          service: 160,
           quantity: 500,
           link: link,
         },

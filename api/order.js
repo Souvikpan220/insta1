@@ -98,7 +98,7 @@ module.exports = async (req, res) => {
     }
 
     const response = await axios.post(
-      "https://falconsmmpanel.com/api/v2",
+      "https://justanotherpanel.com/api/v2",
       null,
       {
         params: {
